@@ -35,9 +35,17 @@ void main() {
   );
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
   final FirebaseAnalytics analytics = FirebaseAnalytics();
+
+
   final futureApp = Firebase.initializeApp();
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -51,7 +59,8 @@ class MyApp extends StatelessWidget {
         accentColor: Colors.pink[200],
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: FutureBuilder(
+      home: 
+      FutureBuilder(
         future: futureApp,
         builder: (_, snapshot) {
           switch (snapshot.connectionState) {
