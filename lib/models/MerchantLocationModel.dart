@@ -17,26 +17,26 @@ class Merchant {
 
 final List<Merchant> merchant = [
   Merchant(
-      shopName: 'Stumptown Merchant Roasters',
-      address: '18 W 29th St',
+      shopName: 'Water Delivery',
+      address: 'Kahawa',
       description:
-          'Merchant bar chain offering house-roasted direct-trade Merchant, along with brewing gear & whole beans',
+          'I supply  20 Litre Water Services',
       locationCoords: LatLng(-1.2031673, 36.9173212),
       thumbNail: 'https://lh5.googleusercontent.com/p/AF1QipNNzoa4RVMeOisc0vQ5m3Z7aKet5353lu0Aah0a=w90-h90-n-k-no'
       ),
   Merchant(
-      shopName: 'Andrews Merchant Shop',
-      address: '463 7th Ave',
+      shopName: 'Bottled Water',
+      address: 'Kahawa West',
       description:
-          'All-day American comfort eats in a basic diner-style setting',
+          'I supply 300ml to litre  bottled Water Services',
       locationCoords: LatLng(-1.19167318, 36.91020012),
       thumbNail: 'https://lh5.googleusercontent.com/p/AF1QipOfv3DSTkjsgvwCsUe_flDr4DBXneEVR1hWQCvR=w90-h90-n-k-no'
       ),
   Merchant(
-      shopName: 'Third Rail Merchant',
-      address: '240 Sullivan St',
+      shopName: 'Exhauster Services',
+      address: 'Roysambu',
       description:
-          'Small spot draws serious caffeine lovers with wide selection of brews & baked goods.',
+          'We do exhauster services and sewer management services in Nairobi',
       locationCoords: LatLng(-1.20969367, 36.91088676),
       thumbNail: 'https://lh5.googleusercontent.com/p/AF1QipPGoxAP7eK6C44vSIx4SdhXdp78qiZz2qKp8-o1=w90-h90-n-k-no'
       ),
