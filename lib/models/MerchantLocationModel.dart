@@ -20,25 +20,25 @@ final List<Merchant> merchant = [
       shopName: 'Water Delivery',
       address: 'Kahawa',
       description:
-          'I supply  20 Litre Water Services',
+          'Ksh 40',
       locationCoords: LatLng(-1.2031673, 36.9173212),
-      thumbNail: 'https://lh5.googleusercontent.com/p/AF1QipNNzoa4RVMeOisc0vQ5m3Z7aKet5353lu0Aah0a=w90-h90-n-k-no'
+      thumbNail: 'https://firebasestorage.googleapis.com/v0/b/naqua-1b2bb.appspot.com/o/assets%2Fbottledwater.png?alt=media&token=b98e398b-ddab-4465-9499-2589255375e3'
       ),
   Merchant(
       shopName: 'Bottled Water',
       address: 'Kahawa West',
       description:
-          'I supply 300ml to litre  bottled Water Services',
+          'Ksh 360',
       locationCoords: LatLng(-1.19167318, 36.91020012),
-      thumbNail: 'https://lh5.googleusercontent.com/p/AF1QipOfv3DSTkjsgvwCsUe_flDr4DBXneEVR1hWQCvR=w90-h90-n-k-no'
+      thumbNail: 'https://firebasestorage.googleapis.com/v0/b/naqua-1b2bb.appspot.com/o/assets%2Fbottled.png?alt=media&token=270e08f6-ef64-4ebc-ac18-f88dbf8d6e0c'
       ),
   Merchant(
       shopName: 'Exhauster Services',
       address: 'Roysambu',
       description:
-          'We do exhauster services and sewer management services in Nairobi',
+          'Ksh 5000',
       locationCoords: LatLng(-1.20969367, 36.91088676),
-      thumbNail: 'https://lh5.googleusercontent.com/p/AF1QipPGoxAP7eK6C44vSIx4SdhXdp78qiZz2qKp8-o1=w90-h90-n-k-no'
+      thumbNail: 'https://firebasestorage.googleapis.com/v0/b/naqua-1b2bb.appspot.com/o/assets%2Fexhauster.png?alt=media&token=cd1eac55-600f-4076-b9a7-c487b4f57474'
       ),
   // Merchant(
   //     shopName: 'Hi-Collar',
