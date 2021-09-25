@@ -68,17 +68,7 @@ class _MarkersMapState extends State<MarkersMap> {
       else Fluttertoast.showToast(msg: "No shops found", toastLength: Toast.LENGTH_SHORT,);
     });
   }
-  getMerchants() {
-    FirebaseFirestore.instance.collection('merchants')
-    .doc('merchtype').get().then((value) {
-      if (value.exists) {
-        setState(() {
-          merchantslenghth = value.data().length;
-        });
-      }
-    });
-  
-  }
+
 
 
 
