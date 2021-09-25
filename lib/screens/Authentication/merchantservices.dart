@@ -76,7 +76,6 @@ class _MarkersMapState extends State<MarkersMap> {
 
   @override
   void initState() {
-    // TODO: implement initState
     populateMarkers();
     super.initState();
     Geolocator.getCurrentPosition().then((value) {
