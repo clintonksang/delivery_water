@@ -22,7 +22,6 @@ class _MarkersMapState extends State<MarkersMap> {
   int prevPage;
   
 
-// New firebase maps
   bool mapToggle = false;
 
   void _onScroll() {
