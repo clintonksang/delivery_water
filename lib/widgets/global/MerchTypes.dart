@@ -18,20 +18,20 @@ class _MerchTypesState extends State<MerchTypes> {
                         // Water
                         GestureDetector(
                           onTap: () {
-                                                   showModalBottomSheet(
+                                                  //  showModalBottomSheet(
                                                   
-                                                      context: context,
-                                                      builder: (context) {
-                                                        return Container(
-                                                          height: 750,
-                                                          child: 
-                                                          Scaffold(),
+                                                  //     context: context,
+                                                  //     builder: (context) {
+                                                  //       return Container(
+                                                  //         height: 750,
+                                                  //         child: 
+                                                  //         Scaffold(),
                                                        
-                                                        );
-                                                      },);
-                                                      setState(() {
-                                                        hasTapped = true;
-                                                      });
+                                                  //       );
+                                                  //     },);
+                                                  //     setState(() {
+                                                  //       hasTapped = true;
+                                                  //     });
                           },
                           child: Expanded(
                                                       child: Container(

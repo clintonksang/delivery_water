@@ -170,7 +170,7 @@ class _MerchantProfileWidgetState extends State<MerchantProfileWidget> {
                         width: double.infinity,
                         height: 120,
                         fit: BoxFit.cover,
-                      ),
+                      )?? Image.asset('assets/images/background.jpg'),
                       Padding(
                         padding: EdgeInsets.fromLTRB(15, 15, 15, 25),
                         child: Column(

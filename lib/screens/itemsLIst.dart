@@ -258,9 +258,11 @@ class _ItemsLIstWidgetState extends State<ItemsLIstWidget> with SingleTickerProv
                                       decoration: BoxDecoration(
                                         shape: BoxShape.circle,
                                       ),
-                                      child: Image.network(
-                                        'https://images.unsplash.com/photo-1595994195534-d5219f02f99f?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80',
-                                      ),
+                                      child: Image.asset(
+                              'assets/images/background.jpg'
+                              ,
+                              fit: BoxFit.cover,
+                            ) ,
                                     )
                                   ],
                                 ),

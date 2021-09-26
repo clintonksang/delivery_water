@@ -25,6 +25,7 @@ dependencies:
   floating_action_bubble: null
   flutter:
     sdk: flutter
+  flutter_rating_bar:  
   flutter_spinkit: ^4.1.2+1
   fluttertoast: ^7.1.1
   font_awesome_flutter: null

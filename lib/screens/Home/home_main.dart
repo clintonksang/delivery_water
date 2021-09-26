@@ -184,10 +184,11 @@ class _HomeMainState extends State<HomeMain> {
                             decoration: BoxDecoration(
                               shape: BoxShape.circle,
                             ),
-                            child: Image.network(
-                              'https://images.unsplash.com/photo-1522529599102-193c0d76b5b6?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80',
+                            child:Image.asset(
+                              'assets/images/background.jpg'
+                              ,
                               fit: BoxFit.cover,
-                            ),
+                            ) ,
                           ),
                         ),
                       ),

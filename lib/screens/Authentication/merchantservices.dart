@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:water_del/widgets/global/MerchTypes.dart';
-
+import 'package:water_del/screens/Home/orderhistory.dart';
+import 'package:water_del/utilities/global/pageTransitions.dart';
+import 'package:water_del/widgets/global/loading_page.dart';
+import '../Home/productdetailpage.dart';
 class MarkersMap extends StatefulWidget {
   @override
   _MarkersMapState createState() => _MarkersMapState();
@@ -16,20 +18,12 @@ class _MarkersMapState extends State<MarkersMap> {
   List<Marker> allMarkers = [];
   var currentLocation;
   PageController _pageController;
-  var merchant ;
-  var merchants ;
-  var merchantslenghth ;
+  var category = [];
+  var categories;
+  var merchants = [];
   int prevPage;
-  
 
   bool mapToggle = false;
-
-  void _onScroll() {
-    if (_pageController.page.toInt() != prevPage) {
-      prevPage = _pageController.page.toInt();
-      moveCamera();
-    }
-  }
 
   Map<MarkerId, Marker> markers = <MarkerId, Marker>{};
 
@@ -46,34 +40,50 @@ class _MarkersMapState extends State<MarkersMap> {
     );
     setState(() {
       markers[markerId] = marker;
-
     });
   }
+
+  void zoomOnMarker(value) {
+    _mapcontroller.animateCamera(CameraUpdate.newLatLngZoom(
+        LatLng(value["location"].latitude, value["location"].longitude), 12));
+  }
+
 
   populateMarkers() {
     FirebaseFirestore.instance.collection('merchants').get().then((value) {
       if (value.docs.isNotEmpty) {
         for (int i = 0; i < value.docs.length; i++) {
-         
           initMarkers(value.docs[i].data(), value.docs[i].id);
-        setState(() {
-          
-          merchants = value.docs[i].data();
-          
-        });
-
-        
+          merchants.add(value.docs[i].data());
         }
-      }
-      else Fluttertoast.showToast(msg: "No shops found", toastLength: Toast.LENGTH_SHORT,);
+        for (int i = 0; i < value.docs.length; i++) {
+          // remove duplicates from iterable then map it to list called category
+          category.add(value.docs[i].data()['merchtype']);
+        }
+      } else
+        Fluttertoast.showToast(
+          msg: "No merchants found",
+          toastLength: Toast.LENGTH_SHORT,
+        );
     });
   }
 
-
-
 // PopulateMarkeers initstate
 
+  void _onScroll() {
+    if (_pageController.page.toInt() != prevPage) {
+      prevPage = _pageController.page.toInt();
+      moveCamera();
+    }
+  }
 
+  moveCamera() {
+    _mapcontroller.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(
+        target: merchants[_pageController.page.toInt()]['location'],
+        zoom: 14.0,
+        bearing: 45.0,
+        tilt: 45.0)));
+  }
 
   @override
   void initState() {
@@ -83,9 +93,10 @@ class _MarkersMapState extends State<MarkersMap> {
       setState(() {
         value = currentLocation;
         mapToggle = true;
+        categories = category.toSet().toList();
       });
     });
-
+    //page controller
     _pageController = PageController(initialPage: 1, viewportFraction: 0.8)
       ..addListener(_onScroll);
   }
@@ -106,22 +117,32 @@ class _MarkersMapState extends State<MarkersMap> {
                         target: LatLng(-1.2320662, 36.8780867), zoom: 12.0),
                   ),
                 ),
-
                 Positioned(
                   bottom: 20,
-                                  child: Container(
-                    height:70,
-                    width: MediaQuery.of(context).size.width,
-                    child: 
-                    
-                  MerchTypes(),
+                  child: Container(
+                      height: 150,
+                      width: MediaQuery.of(context).size.width,
+                      child:
+                      PageView.builder(
+                  controller: _pageController,
+                  itemCount: merchants.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return getCategoryUI(merchants[index]);
 
-                  ),
+                  },
+                ), 
+                      // ListView(
+                      //   scrollDirection: Axis.horizontal,
+                      //   padding: EdgeInsets.all(8),
+                      //   children: merchants.map((value) {
+                      //     return getCategoryUI(value);
+                      //   }).toList(),
+                      // )
+                      ),
                 )
               ],
             )
-          : Center(child: CircularProgressIndicator()),
-
+          : LoadingPage(),
     );
   }
 
@@ -131,110 +152,89 @@ class _MarkersMapState extends State<MarkersMap> {
     });
   }
 
-  moveCamera() {
-    _mapcontroller.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(
-        target: merchant[_pageController.page.toInt()].locationCoords,
-        zoom: 14.0,
-        bearing: 45.0,
-        tilt: 45.0)));
-  }
-  // _coffeeShopList(index) {
-  //   return AnimatedBuilder(
-  //     animation: _pageController,
-  //     builder: (BuildContext context, Widget widget) {
-  //       double value = 1;
-  //       if (_pageController.position.haveDimensions) {
-  //         value = _pageController.page - index;
-  //         value = (1 - (value.abs() * 0.3) + 0.06).clamp(0.0, 1.0);
-  //       }
-  //       return Center(
-  //         child: SizedBox(
-  //           height: Curves.easeInOut.transform(value) * 125.0,
-  //           width: Curves.easeInOut.transform(value) * 350.0,
-  //           child: widget,
-  //         ),
-  //       );
-  //     },
-  //     child: InkWell(
-  //         onTap: () {
-  //           // moveCamera();
-  //         },
-  //         child: Stack(children: [
-  //           Center(
-  //               child: Container(
-  //                   margin: EdgeInsets.symmetric(
-  //                     horizontal: 10.0,
-  //                     vertical: 20.0,
-  //                   ),
-  //                   height: 125.0,
-  //                   width: 275.0,
-  //                   decoration: BoxDecoration(
-  //                       borderRadius: BorderRadius.circular(10.0),
-  //                       boxShadow: [
-  //                         BoxShadow(
-  //                           color: Colors.black54,
-  //                           offset: Offset(0.0, 4.0),
-  //                           blurRadius: 10.0,
-  //                         ),
-  //                       ]),
-  //                   child: Container(
-  //                       decoration: BoxDecoration(
-  //                           borderRadius: BorderRadius.circular(10.0),
-  //                           color: Colors.white),
-  //                       child: Row(children: [
-  //                         Expanded(
-  //                                                     child: Container(
-  //                               height: 90.0,
-  //                               width: 90.0,
-  //                               decoration: BoxDecoration(
-  //                                   borderRadius: BorderRadius.only(
-  //                                       bottomLeft: Radius.circular(10.0),
-  //                                       topLeft: Radius.circular(10.0)),
-  //                                   image: DecorationImage(
-  //                                       image: NetworkImage(
-  //                                           merchant[index].thumbNail),
-  //                                       fit: BoxFit.cover))),
-  //                         ),
-  //                         SizedBox(width: 5.0),
-  //                         Column(
-  //                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-  //                             crossAxisAlignment: CrossAxisAlignment.start,
-  //                             children: [
-  //                               Text(
-  //                                 merchant[index].shopName,
-  //                                 style: TextStyle(
-  //                                     fontSize: 12.5,
-  //                                     fontWeight: FontWeight.bold),
-  //                               ),
-  //                               Text(
-  //                                 merchant[index].address,
-  //                                 style: TextStyle(
-  //                                     fontSize: 12.0,
-  //                                     fontWeight: FontWeight.w600),
-  //                               ),
-  //                               Container(
-  //                                 width: 170.0,
-  //                                 child: Text(
-  //                                   merchant[index].description,
-  //                                   style: TextStyle(
-  //                                       fontSize: 11.0,
-  //                                       fontWeight: FontWeight.w300),
-  //                                 ),
-  //                               )
-  //                             ])
-  //                       ]))))
-  //         ])),
-  //   );
+ 
+            Widget getCategoryUI(value) {
+              return 
+                 InkWell(
+          onTap: () async{
 
-  // }
-
-  // merchant.forEach((element) {
-  //         allMarkers.add(Marker(
-  //       markerId: MarkerId(element.shopName),
-  //       draggable: false,
-  //       infoWindow:
-  //           InfoWindow(title: element.shopName, snippet: element.address),
-  //       position: element.locationCoords));
-  // });
+              Navigator.of(context)
+                  .push(SlideLeftTransition(page: ProductDetail()));
+          },
+          child: Stack(children: [
+            Center(
+                child: Container(
+                      margin: EdgeInsets.symmetric(
+                        horizontal: 10.0,
+                        vertical: 20.0,
+                      ),
+                      height: 125.0,
+                      width: 275.0,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10.0),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black54,
+                              offset: Offset(0.0, 4.0),
+                              blurRadius: 10.0,
+                            ),
+                          ]),
+                      child: Container(
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10.0),
+                              color: Colors.white),
+                          child: Row(children: [
+                            Expanded(
+                                     child: Container(
+                                  height: 90.0,
+                                  width: 90.0,
+                                  decoration: BoxDecoration(
+                   borderRadius: BorderRadius.only(
+                       bottomLeft: Radius.circular(10.0),
+                       topLeft: Radius.circular(10.0)),
+                       image: DecorationImage(image: 
+                       AssetImage('assets/images/background.jpg')
+                       )
+                   // image: DecorationImage(
+                   //    fit: BoxFit.cover,
+                   //     image: NetworkImage(
+                   //         value['thumbNail'] 
+                   //    ) ??Image.asset("assets/images/background.jpg"),
+                   //    )
+                      ),
+                            ),),
+                            SizedBox(width: 5.0),
+                            Column(
+                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                 value['shopName'],
+                 style: TextStyle(
+                     fontSize: 12.5,
+                     fontWeight: FontWeight.bold),
+                                  ),
+                                  Text(
+                 value['address'],
+                     
+                     style:TextStyle(fontSize: 12.0,
+                     fontWeight: FontWeight.w600),
+                                  ),
+                                  Container(
+                 width: 170.0,
+                 child: Text(
+                   value['description'],
+                   style: TextStyle(
+                       fontSize: 11.0,
+                       fontWeight: FontWeight.w300),
+                 ),
+                                  )
+                                ])
+                          ]))))
+          ]
+          )
+          
+          );
+            }   
 
 }
