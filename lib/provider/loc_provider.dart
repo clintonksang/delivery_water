@@ -24,7 +24,6 @@ class LocationProvider {
   }
 
   LocationProvider() {
-    //Permission to use location
     location.requestPermission().then((granted) {
       if (granted == PermissionStatus.GRANTED) {
         //Check if GPS is on
