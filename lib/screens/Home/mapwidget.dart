@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:lottie/lottie.dart';
 import 'package:water_del/screens/Authentication/merchantservices.dart';
+import 'package:water_del/screens/constants.dart';
 import 'package:water_del/utilities/global/pageTransitions.dart';
 import 'landing.dart';
 
@@ -38,7 +39,7 @@ class _HomeMapState extends State<HomeMap> {
                   width: MediaQuery.of(context).size.width * 0.9,
                   height: 250,
                   decoration: BoxDecoration(
-                    color: Colors.grey,
+                    color: Color(0xFFEFEFEF),
                     borderRadius: BorderRadius.circular(15),
                   ),
                   child: Stack(
@@ -115,34 +116,37 @@ class _HomeMapState extends State<HomeMap> {
                                         ),
                                       ),
                                     ),
-                                    Padding(
-                                      padding:
-                                          EdgeInsets.fromLTRB(60, 0, 5, 10),
-                                      child: InkWell(
-                                        onTap: () async {
-                                          Navigator.of(context).push(ScaleRoute(
-                                              page: MarkersMap()
-                                              )
-                                              ) ?? LottieBuilder.asset('assets/lottie/zigzag.json');
+                                    Align(
+                                      alignment: Alignment.centerRight,
+                                                                          child: Padding(
+                                        padding:
+                                            EdgeInsets.fromLTRB(0, 0, 0, 10),
+                                        child: InkWell(
+                                          onTap: () async {
+                                            Navigator.of(context).push(ScaleRoute(
+                                                page: MarkersMap()
+                                                )
+                                                ) ?? LottieBuilder.asset('assets/lottie/zigzag.json');
                    
-                                        },
-                                        child: Container(
-                                          width: 150,
-                                          height: 50,
-                                          decoration: BoxDecoration(
-                                            color: Color(0xFF4D3BF2),
-                                            borderRadius:
-                                                BorderRadius.circular(15),
-                                          ),
-                                          child: Padding(
-                                            padding: EdgeInsets.fromLTRB(
-                                                0, 15, 0, 0),
-                                            child: Text(
-                                              'View Map',
-                                              textAlign: TextAlign.center,
-                                              style: TextStyle(
-                                                fontFamily: 'Lexend Deca',
-                                                color: Color(0xFFEFEFEF),
+                                          },
+                                          child: Container(
+                                            width: 150,
+                                            height: 50,
+                                            decoration: BoxDecoration(
+                                              color: kblue,
+                                              borderRadius:
+                                                  BorderRadius.circular(15),
+                                            ),
+                                            child: Padding(
+                                              padding: EdgeInsets.fromLTRB(
+                                                  0, 15, 0, 0),
+                                              child: Text(
+                                                'View Map',
+                                                textAlign: TextAlign.center,
+                                                style: TextStyle(
+                                                  fontFamily: 'Lexend Deca',
+                                                  color: Color(0xFFEFEFEF),
+                                                ),
                                               ),
                                             ),
                                           ),

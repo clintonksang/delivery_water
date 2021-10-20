@@ -81,8 +81,8 @@ class LoginPage extends StatelessWidget {
     result = await userProvider.signInEmailPass(user);
     // print('This is the result: $result');
 
-    if (result == 'Invalid credentials. Please try again') {
-      return  Fluttertoast.showToast(msg: "Invalid Credentials");;
+    if (result == null) {
+      return false;
     } else if (result == "The email format entered is invalid") {
       return false;
     } else if (result == "Please register first") {

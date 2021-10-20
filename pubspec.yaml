@@ -25,10 +25,11 @@ dependencies:
   floating_action_bubble: null
   flutter:
     sdk: flutter
-  flutter_rating_bar:  
+  flutter_rating_bar: null
   flutter_spinkit: ^4.1.2+1
   fluttertoast: ^7.1.1
   font_awesome_flutter: null
+  geocoder: ^0.2.1
   geolocator: null
   google_fonts: ^1.1.1
   google_maps_flutter: ^0.5.27+3

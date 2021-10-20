@@ -37,7 +37,7 @@ final FirebaseAuth _auth = FirebaseAuth.instance;
   return 'Good Night';
   }
 }
-  getCurrentUser() async {
+ getCurrentUser() async {
     // final FirebaseUser user = _auth.currentUser;
     //c
     // // Similarly we can get email as well
@@ -45,9 +45,10 @@ final FirebaseAuth _auth = FirebaseAuth.instance;
     // print(uid);
     // //print(uemail);
     final FirebaseAuth user = _auth.currentUser as FirebaseAuth;
-    final uid = user.currentUser.uid;
-    final firstname = user.currentUser.displayName[0];
-     return firstname;  }
+  
+     return user; 
+     
+ }
   Future<void> setLastLogin(String uid, Timestamp now) async {
     try {
       await _db.collection('users').doc(uid).update(
